@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { menuData } from '../data/MenuData'
 import { Button } from './Button'
 
+import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 
 const Nav = styled.nav`
     height: 60px;
@@ -13,12 +14,10 @@ const Nav = styled.nav`
     z-index:100;
     position: fixed;
     width:100%;
-    background: red;
 `
 
 const NavLink = css`
     color:#fff;
-    font-style:italic;
     display:flex;
     align-items:center;
     padding: 0 1rem;
@@ -31,8 +30,21 @@ const Logo = styled(Link)`
 ${NavLink}
 `
 
-const MenuBars = styled.i`
+const MenuBars = styled(HiOutlineMenuAlt3)`
     display:none;
+    
+   
+    @media screen and (max-width:768px){
+        display:block;
+        background-size: contain;
+        height: 40px;
+        width: 40px;
+        cursor:pointer;
+        position:absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-50%, 25%);
+    };
 `
 
 const NavMenu = styled.div`
@@ -59,11 +71,12 @@ const NavBtn = styled.div`
     }
 `
 
-const Navbar = () => {
+const Navbar = ({ toggle }) => {
     return (
         <Nav>
-            <Logo>Food Ninja's</Logo>
-            <MenuBars />
+            <Logo to="/">Food Ninja's</Logo>
+            <MenuBars onClick={toggle} />
+
             <NavMenu>
                 {menuData.map((item, index) => (
                     <NavMenuLinks to={item.link} key={index}>

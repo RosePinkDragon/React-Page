@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Ubuntu', sans-serif;
   }
+  
   html,body{
     overflow-x:hidden;
   }
