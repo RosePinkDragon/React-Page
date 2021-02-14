@@ -9,13 +9,13 @@ export default function Sidebar({isOpen, toggle}) {
       </Icon>
       <SidebarWrapper onClick={toggle}>
         <SidebarMenu>
-          <SidebarLink to='signup' onClick={toggle}>About</SidebarLink>
-          <SidebarLink to='discover' onClick={toggle}>Discover</SidebarLink>
+          <SidebarLink to='about' onClick={toggle}>About</SidebarLink>
+          <SidebarLink to='practice' onClick={toggle}>Discover</SidebarLink>
           <SidebarLink to='services' onClick={toggle}>Services</SidebarLink>
-          <SidebarLink to='signup' onClick={toggle}>Sign Up</SidebarLink>
+          <SidebarLink to='careers' onClick={toggle}>Careers</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to='/signin'>Sign In</SidebarRoute>
+          <SidebarRoute to='/signin'>Request Appointment</SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>

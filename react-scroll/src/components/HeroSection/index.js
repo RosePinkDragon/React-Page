@@ -16,14 +16,14 @@ const HeroSection = () => {
       <HeroBg>
         <VideoBg src={HeroBgImg} />
       </HeroBg>
-      ]<HeroContent>
-        <HeroH1>Virtual Banking Made Easy</HeroH1>
+      <HeroContent>
+        <HeroH1 style={{color: '#e6be03'}}>Vidhigya Associates</HeroH1>
         <HeroP>
-          Sign up for a new account today and receive $250 in credit towards your next payment,
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi alias rerum suscipit provident, distinctio pariatur illum. Deserunt inventore voluptas suscipit tempore.
         </HeroP>
         <HeroBtnWrapper>
-          <Button to="signup"  onMouseEnter={onHover} onMouseLeave={onHover}>
-            Get Started { hover ?  <ArrowForward /> : <ArrowRight /> }
+          <Button to="signup"  onMouseEnter={onHover} onMouseLepave={onHover}>
+            Contact Us { hover ? <ArrowRight />  : <ArrowForward /> }
           </Button>
         </HeroBtnWrapper>
       </HeroContent>

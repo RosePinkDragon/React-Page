@@ -39,6 +39,7 @@ export const HeroBg = styled.div`
 `
 
 export const VideoBg = styled.img`
+mask-image: linear-gradient(to top, transparent 10%, black);
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
