@@ -8,19 +8,14 @@ import GlobalStyle from './GlobalStyles';
 import Home from './pages';
 import SignInPage from './pages/signin';
 
+import "./App.css";
 
 
 function App() {
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
 
   return (
     <Router>
-      
       <GlobalStyle/>
       <Switch>
       <Route path="/" component={Home} exact />

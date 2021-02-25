@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {animateScroll as scroll} from 'react-scroll'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaTwitter } from 'react-icons/fa' 
 
 import { FooterContainer, FooterLinkItems, FooterLinksContainer, FooterLinksWrapper, FooterLinkTitle, FooterWrap, FooterLink, SocialMediaWrap, SocialMedia, SocialLogo, SocialIcons, WebsiteRights, SocialIconLink } from './FooterElements'
@@ -7,6 +7,11 @@ import { FooterContainer, FooterLinkItems, FooterLinksContainer, FooterLinksWrap
 
 
 export default function Footer() {
+
+  const toggleHome = () => {
+    scroll.scrollToTop();
+  }
+
   return (
     <FooterContainer>
       <FooterWrap>
@@ -51,7 +56,7 @@ export default function Footer() {
         </FooterLinksContainer>
         <SocialMedia>
             <SocialMediaWrap>
-              <SocialLogo to="/">Vidhigya Associates</SocialLogo>
+              <SocialLogo to="/" onClick={toggleHome}>Vidhigya Associates</SocialLogo>
               <WebsiteRights>
                 Vidhigya Associates &#169; {new Date().getFullYear()} All rights reserved
               </WebsiteRights>
