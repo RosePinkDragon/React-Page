@@ -38,9 +38,9 @@ const HeroSlider = styled.div`
     height: 100%;
     display:flex;
     align-items: center;
-    justify: content;
+    justify-content : center;
     
-    &::before{
+    &:before{
         content:'';
         position: absolute;
         z-index:2;
@@ -79,12 +79,12 @@ const HeroContent = styled.div`
         text-transform: uppercase;
         text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
         text-align: left;
-        margin-botton: 0.8rem;
+        margin-bottom: 0.8rem;
     }
 
     p{
         margin-bottom: 1.2rem;
-        text-shadow: text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+        text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
     }
 
 `
