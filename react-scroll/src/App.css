@@ -3,3 +3,21 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+html{
+  background: #010606;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #010606;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e6be03;
+  border-radius: 3px;
+}

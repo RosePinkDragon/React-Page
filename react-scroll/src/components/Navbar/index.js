@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MobileIcon, NavMenu, Nav, NavbarContainer, NavItem, NavLinks, NavLogo, NavBtnLink, NavBtn } from './NavBarElements'
-
+import {animateScroll as scroll} from 'react-scroll'
 
 
 import { FaBars } from 'react-icons/fa'
@@ -18,29 +18,41 @@ export default function Navbar({ toggle }) {
   }
 
   useEffect(() => {
-      window.addEventListener('scroll', changeNav)
+      window.addEventListener('scroll', changeNav);
   }, [])
+
+  const toggleHome = () => {
+    scroll.scrollToTop()
+  }
 
   return (
       <>
         <Nav scrollNav={scrollNav}>
           <NavbarContainer>
-            <NavLogo to="/">V A Law Offices</NavLogo>
+            <NavLogo to="/" onClick={toggleHome}>V A Law Offices</NavLogo>
             <MobileIcon>
               <FaBars onClick={toggle}/>
             </MobileIcon>
             <NavMenu>
             <NavItem>
-              <NavLinks to="about">About</NavLinks>
+              <NavLinks to="about"
+              smooth={true} duration={500} spy={true} exact='true' offset={-80}
+              >About</NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks to="practice">Practice Area</NavLinks>
+              <NavLinks to="practice"
+              smooth={true} duration={500} spy={true} exact='true' offset={-80}
+              >Practice Area</NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks to="services">Services</NavLinks>
+              <NavLinks to="services"
+              smooth={true} duration={500} spy={true} exact='true' offset={-80}
+              >Services</NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks to="careers">Careers</NavLinks>
+              <NavLinks to="careers"
+              smooth={true} duration={500} spy={true} exact='true' offset={-80}
+              >Careers</NavLinks>
             </NavItem>
             </NavMenu>
             <NavBtn>
