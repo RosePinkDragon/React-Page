@@ -1,30 +1,20 @@
 // ** This is a basic code with no animations.
 // !! This is just for ref purposes with the dropdown menu
 
-import { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import GlobalStyle from './GlobalStyles';
-import Home from './pages';
-import SignInPage from './pages/signin';
-
-
+import GlobalStyle from "./GlobalStyles";
+import Home from "./pages";
+import SignInPage from "./pages/signin";
 
 function App() {
-
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
-
   return (
     <Router>
-      
-      <GlobalStyle/>
+      <GlobalStyle />
       <Switch>
-      <Route path="/" component={Home} exact />
-      <Route path="/signin" component={SignInPage} exact />
+        <Route path="/" component={Home} exact />
+        <Route path="/signin" component={SignInPage} exact />
       </Switch>
     </Router>
   );

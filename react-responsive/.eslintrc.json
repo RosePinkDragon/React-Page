@@ -1,0 +1,8 @@
+{
+  "plugins": ["@tanstack/query"],
+  "extends": [
+    "sznm/react",
+    "plugin:react/jsx-runtime",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "sections": [
+    {
+      "name": "questionnaire",
+      "label": "Questionnaire",
+      "formFields": [
+        {
+          "name": "question1",
+          "label": "Question 1",
+          "type": "boolean",
+          "placeholder": "Enter your password",
+          "required": true
+        },
+        {
+          "isDependentOn": "question1",
+          "name": "password",
+          "label": "Password",
+          "type": "text",
+          "placeholder": "Enter your password",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

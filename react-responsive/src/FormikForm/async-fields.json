@@ -1,0 +1,27 @@
+{
+  "sections": [
+    {
+      "name": "questionnaire",
+      "label": "Questionnaire",
+      "formFields": [
+        {
+          "name": "question1",
+          "label": "Question 1",
+          "type": "radio",
+          "options": [
+            { "label": "India", "value": "india" },
+            { "label": "UAE", "value": "United Arab Emirates" }
+          ]
+        },
+        {
+          "isDependentOn": "question1",
+          "name": "question2",
+          "label": "Question 2",
+          "type": "select",
+          "options": [],
+          "api": "http://localhost:3000/countries"
+        }
+      ]
+    }
+  ]
+}
