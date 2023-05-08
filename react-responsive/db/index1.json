@@ -6,16 +6,16 @@
         "label": "Questionnaire",
         "formFields": [
           {
-            "name": "country",
+            "name": "question1",
             "label": "Question 1",
             "type": "radio",
             "options": [
-              { "label": "India", "value": "India" },
-              { "label": "UAE", "value": "UAE" }
+              { "label": "India", "value": "india" },
+              { "label": "UAE", "value": "United Arab Emirates" }
             ]
           },
           {
-            "isDependentOn": "country",
+            "isDependentOn": "question1",
             "name": "question2",
             "label": "Question 2",
             "type": "select",
@@ -29,7 +29,6 @@
   "countriesNames": ["India", "United Arab Emirates"],
   "countries": [
     {
-      "id": 1,
       "country": "India",
       "states": [
         "Andaman and Nicobar Islands",
@@ -70,8 +69,7 @@
       ]
     },
     {
-      "id": 2,
-      "country": "UAE",
+      "country": "United Arab Emirates",
       "states": [
         "Abu Dhabi",
         "'Ajman",

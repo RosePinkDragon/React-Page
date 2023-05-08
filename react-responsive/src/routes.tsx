@@ -1,8 +1,7 @@
 import { useRoutes } from "react-router-dom";
 
-import FormGenerator from "./FormikForm";
-import testData from "./FormikForm/async-fields.json";
 import Layout from "./layout";
+import FormPage from "./pages/FormPage";
 import NotFound from "./pages/NotFoundPage";
 import PinInput from "./PinInput";
 
@@ -14,7 +13,7 @@ export default function Router() {
       children: [
         {
           path: "/",
-          element: <FormGenerator formData={testData} />,
+          element: <FormPage />,
           index: true,
         },
         {

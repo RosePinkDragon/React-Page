@@ -4,22 +4,29 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
 } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { useFormikContext } from "formik";
+import { useEffect, useState } from "react";
 
 import type { FormField, FormValues } from "./formelements";
 
 export type ICountriesResponse = {
-  name: string;
+  country: string;
   states: string[];
 };
 
-const fetchCountries = (api: string): Promise<ICountriesResponse[]> =>
-  axios.get(api).then((res) => res.data);
+export const fetchCountries = (
+  api: string,
+  value: string,
+  isDependentOn: string
+): Promise<ICountriesResponse[]> => {
+  const url = `${api}?${isDependentOn}=${value}`;
+  return axios.get(url).then((res) => res.data);
+};
 
 const SelectInput = ({
   field,
@@ -46,41 +53,49 @@ const SelectInput = ({
     api = "",
   } = field;
 
-  const {
-    data: fieldOptions = options,
-    isLoading,
-    error,
-    refetch,
-    isInitialLoading,
-  } = useQuery<ICountriesResponse[], AxiosError>({
-    queryKey: [name, api],
-    queryFn: () => fetchCountries(api),
-    enabled: false,
+  const [fieldOptions, setFieldOptions] = useState(options || []);
+
+  const dependentFieldValue = isDependentOn ? values[isDependentOn] : "";
+
+  const { data, error, refetch, isInitialLoading } = useQuery<
+    ICountriesResponse[],
+    AxiosError
+  >({
+    queryKey: [name, api, dependentFieldValue, isDependentOn],
+    queryFn: () =>
+      fetchCountries(api, dependentFieldValue, isDependentOn || ""),
   });
 
+  useEffect(() => {
+    if (data && isDependentOn)
+      setFieldOptions(
+        data
+          .find((d) => d.country === values[isDependentOn])
+          ?.states.map((s) => {
+            return { label: s, value: s };
+          }) || []
+      );
+  }, [data, isDependentOn, values]);
+
   const doesNotHaveOptions = !fieldOptions || fieldOptions.length === 0;
-  console.log(
-    "🚀 ~ file: SelectInput.tsx:60 ~ doesNotHaveOption:",
-    doesNotHaveOptions
-  );
+
+  const booleanRegex = /^boolean-/;
+  const isBooleanDependent = booleanRegex.test(field.type) && isDependentOn;
 
   const isDisabled =
     doesNotHaveOptions ||
-    (isDependentOn ? Boolean(values[isDependentOn]) : false);
-  console.log("🚀 ~ file: SelectInput.tsx:63 ~ isDisabled:", isDisabled);
+    (isBooleanDependent ? Boolean(values[isDependentOn]) : false);
 
   const handleChange = (event: SelectChangeEvent) => {
     if (!dependentFields) return formikHandleChange(event);
     refetch();
-    if (fieldOptions && fieldOptions.length > 0) {
-      const newOptions = data
-        .find(
-          (country: { name: string }) => country.name === event.target.value
-        )
-        ?.states.map((state: string) => ({
-          label: state,
-          value: state,
-        }));
+    if (data && isDependentOn) {
+      const newOptions: { label: string; value: string }[] | undefined = data
+        .find((d) => d.country === values[isDependentOn])
+        ?.states.map((s) => {
+          return { label: s, value: s };
+        });
+      if (newOptions) setFieldOptions(newOptions);
     }
     return formikHandleChange(event);
   };
@@ -103,7 +118,7 @@ const SelectInput = ({
         disabled={isDisabled}
       >
         <MenuItem value="" disabled>
-          {placeholder}
+          {placeholder || `Select ${label}`}
         </MenuItem>
         {fieldOptions?.map((option) => (
           <MenuItem key={option.value} value={option.value}>

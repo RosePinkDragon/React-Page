@@ -5,10 +5,11 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormikContext } from "formik";
 
-import type { FormField, FormValues } from "./formelements";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { FormField, FormSchema, FormValues } from "./formelements";
+import { fetchCountries } from "./SelectInput";
 
 function RadioInput({
   field,
@@ -29,19 +30,30 @@ function RadioInput({
   const { name, label, options, isDependentOn } = field;
 
   const addTodoToMutation = useMutation<string[], unknown, string>({
-    onMutate: (newTodo: string) => {
-      const previousTodos = queryClient.getQueryData<ITodos>(["todos"]);
+    onMutate: (dependentField: string) => {
+      const previousTodos = queryClient.getQueryData<FormSchema>([
+        "formSchema",
+      ]);
       if (previousTodos) {
-        queryClient.setQueryData(["todos"], [...previousTodos, newTodo]);
-        return [...previousTodos, newTodo];
+        queryClient.setQueryData(
+          [dependentField],
+          fetchCountries(
+            "localhost:3000/api/countries",
+            field.name,
+            values[field.name]
+          )
+        );
+        return [dependentField];
       }
-      return [newTodo];
+      return [dependentField];
     },
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!dependentFields) return formikHandleChange(event);
-
+    dependentFields.forEach((dependentField) => {
+      addTodoToMutation.mutate(dependentField);
+    });
     return formikHandleChange(event);
   };
 

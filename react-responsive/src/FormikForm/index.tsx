@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { Formik, Form } from "formik";
 import { FaPhoneAlt } from "react-icons/fa";
 
-import TodoList from "../pages/NotFoundPage/testCache";
+import TodoList from "../pages/testCache";
 
 import type { FormSchema, FormValues } from "./formelements";
 import createValidationSchema from "./generateValidationSchema";
@@ -28,7 +28,8 @@ function FormGenerator({ formData }: { formData: FormSchema }) {
 
   const formSchema: FormSchema = formData;
   const initialValues: FormValues = {};
-  const dependentFieldsData: Record<string, string[]> = {};
+  const dependentFieldsData: Record<string, { name: string; api: string }[]> =
+    {};
 
   formSchema.sections.forEach((section) => {
     section.formFields.forEach((field) => {
@@ -44,21 +45,29 @@ function FormGenerator({ formData }: { formData: FormSchema }) {
     section.formFields.forEach((field) => {
       if (field.isDependentOn) {
         if (dependentFieldsData[field.isDependentOn]) {
-          dependentFieldsData[field.isDependentOn].push(field.name);
+          dependentFieldsData[field.isDependentOn].push({
+            name: field.name,
+            api: field.api || "",
+          });
         } else {
-          dependentFieldsData[field.isDependentOn] = [field.name];
+          dependentFieldsData[field.isDependentOn] = [
+            {
+              name: field.name,
+              api: field.api || "",
+            },
+          ];
         }
       }
     });
   });
 
+  console.log(dependentFieldsData);
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      onSubmit={() => {}}
     >
       {({
         values,
