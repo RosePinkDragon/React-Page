@@ -78,7 +78,6 @@ function FormGenerator({ formData }: { formData: FormSchema }) {
         setFieldValue,
       }) => (
         <Form>
-          <TodoList />
           {formSchema.sections.map((section) => (
             <div key={section.name}>
               <h3>{section.name}</h3>
