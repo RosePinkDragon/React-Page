@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import Layout from "./layout";
 import FormPage from "./pages/FormPage";
 import NotFound from "./pages/NotFoundPage";
-import Paginated from "./pages/TestTable/Paginated";
+import Paginated from "./pages/TestTable";
 import PinInput from "./PinInput";
 
 export default function Router() {
