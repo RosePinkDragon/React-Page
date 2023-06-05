@@ -1,40 +1,45 @@
-import { Button, MenuItem, OutlinedInput, Select } from "@mui/material";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import {
+  Box,
+  IconButton,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@mui/material";
 import type { Table } from "@tanstack/react-table";
 
 import type { Person } from "../columns";
 
 const PaginationMenu = ({ table }: { table: Table<Person> }) => {
   return (
-    <div>
-      <Button
-        variant="contained"
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
         onClick={() => table.setPageIndex(0)}
         disabled={!table.getCanPreviousPage()}
       >
-        {"<<"}
-      </Button>
-      <Button
-        variant="contained"
+        <FirstPageIcon />
+      </IconButton>
+      <IconButton
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
-        {"<"}
-      </Button>
-      <Button
-        variant="contained"
+        <KeyboardArrowLeft />
+      </IconButton>
+      <IconButton
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >
-        {">"}
-      </Button>
-      <Button
-        variant="contained"
+        <KeyboardArrowRight />
+      </IconButton>
+      <IconButton
         onClick={() => table.setPageIndex(table.getPageCount() - 1)}
         disabled={!table.getCanNextPage()}
       >
-        {">>"}
-      </Button>
-      <br />
+        <LastPageIcon />
+      </IconButton>
       <span className="flex items-center gap-1">
         Page
         <strong>
@@ -65,7 +70,7 @@ const PaginationMenu = ({ table }: { table: Table<Person> }) => {
           </MenuItem>
         ))}
       </Select>
-    </div>
+    </Box>
   );
 };
 

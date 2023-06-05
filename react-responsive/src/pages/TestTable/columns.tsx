@@ -7,8 +7,9 @@ export type Person = {
   lastName: string;
   age: number;
   visits: number;
-  status: string;
+  status: "relationship" | "complicated" | "single";
   progress: number;
+  subRows?: Person[];
 };
 
 const defaultColumns: ColumnDef<Person>[] = [

@@ -3,9 +3,8 @@ import { useRoutes } from "react-router-dom";
 import Layout from "./layout";
 import FormPage from "./pages/FormPage";
 import NotFound from "./pages/NotFoundPage";
-import TestTable from "./pages/TestTable";
+import Paginated from "./pages/TestTable/Paginated";
 import PinInput from "./PinInput";
-import TestPage2 from "./pages/TestTable/TestTable";
 
 export default function Router() {
   return useRoutes([
@@ -13,14 +12,9 @@ export default function Router() {
       path: "/",
       element: <Layout />,
       children: [
-        // {
-        //   path: "/",
-        //   element: <TestTable />,
-        //   index: true,
-        // },
         {
           path: "/",
-          element: <TestPage2 />,
+          element: <Paginated />,
           index: true,
         },
         {

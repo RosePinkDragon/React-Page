@@ -1,14 +1,16 @@
 import { faker } from "@faker-js/faker";
 
-export type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  progress: number;
-  status: "relationship" | "complicated" | "single";
-  subRows?: Person[];
-};
+import type { Person } from "./columns";
+
+// export type Person = {
+//   firstName: string;
+//   lastName: string;
+//   age: number;
+//   visits: number;
+//   status: "relationship" | "complicated" | "single";
+//   progress: number;
+//   subRows?: Person[];
+// };
 
 const range = (len: number) => {
   const arr = [];

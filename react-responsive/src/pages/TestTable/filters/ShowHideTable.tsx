@@ -1,12 +1,13 @@
 import {
-  Button,
   Checkbox,
   FormControlLabel,
+  IconButton,
   Menu,
   MenuItem,
 } from "@mui/material";
 import type { Table } from "@tanstack/react-table";
 import { useState } from "react";
+import { FaFilter } from "react-icons/fa";
 
 import type { Person } from "../columns";
 
@@ -31,14 +32,14 @@ const ShowHideTable = ({ table }: { table: Table<Person> }) => {
 
   return (
     <>
-      <Button
-        variant="contained"
+      <IconButton
         aria-describedby="basic-button"
         type="button"
         onClick={handleClick}
+        color="primary"
       >
-        Toggle Columns
-      </Button>
+        <FaFilter />
+      </IconButton>
 
       <Menu
         id="basic-menu"
