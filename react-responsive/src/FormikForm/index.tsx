@@ -14,8 +14,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { Formik, Form } from "formik";
 import { FaPhoneAlt } from "react-icons/fa";
-
-import TodoList from "../pages/testCache";
+import type { AnyObject, ObjectSchema } from "yup";
 
 import type { FormSchema, FormValues } from "./formelements";
 import createValidationSchema from "./generateValidationSchema";
@@ -23,8 +22,14 @@ import RadioInput from "./RadioInput";
 import SelectInput from "./SelectInput";
 import TextInput from "./TextInput";
 
-function FormGenerator({ formData }: { formData: FormSchema }) {
-  const validationSchema = createValidationSchema(formData);
+function FormGenerator({
+  formData,
+  extendedSchema,
+}: {
+  formData: FormSchema;
+  extendedSchema: ObjectSchema<AnyObject>;
+}) {
+  const validationSchema = createValidationSchema(formData, extendedSchema);
 
   const formSchema: FormSchema = formData;
   const initialValues: FormValues = {};
@@ -61,13 +66,13 @@ function FormGenerator({ formData }: { formData: FormSchema }) {
     });
   });
 
-  console.log(dependentFieldsData);
-
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={() => {}}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
     >
       {({
         values,

@@ -15,9 +15,11 @@ const getField = (schema: FormSchema, key: string) =>
 
 function textRuleGenerator(field: FormField) {
   let rule = Yup.string();
+
   if (field.type === "email") {
     rule = rule.email("A valid email is required");
   }
+
   if (field.type === "password") {
     rule = rule
       .min(8, "Password must be at least 8 characters")
@@ -69,44 +71,61 @@ function dateRuleGenerator(field: FormField) {
   return rule;
 }
 
-const createValidationSchema = (schema: FormSchema) => {
-  return Yup.lazy((obj: FormValues) =>
-    Yup.object(
-      Object.keys(obj).reduce((prev, key) => {
-        const field = getField(schema, key);
+const baseSchemaGenerator = (schema: FormSchema, obj: FormValues) => {
+  const baseSchema = Object.keys(obj).reduce((prev, key) => {
+    const fild = getField(schema, key);
+    if (!fild) return prev;
 
-        if (!field) return prev;
+    let rule = null;
 
-        let rule = null;
+    if (isFieldText(fild)) {
+      rule = textRuleGenerator(fild);
+    }
+    if (fild.type === "date") {
+      rule = dateRuleGenerator(fild);
+    }
 
-        if (isFieldText(field)) {
-          rule = textRuleGenerator(field);
-        }
-        if (field.type === "date") {
-          rule = dateRuleGenerator(field);
-        }
+    if (fild.type === "boolean") {
+      rule = Yup.bool().oneOf([true], `${fild.name} is required`);
+    }
 
-        if (field.type === "boolean") {
-          rule = Yup.bool().oneOf([true], `${field.name} is required`);
-        }
+    if (fild.type === "number") {
+      rule = Yup.number()
+        .typeError(`${fild.name} must be a number`)
+        .positive(`${fild.name} must be a positive number`)
+        .integer(`${fild.name} must be a whole number`);
+    }
+    if (rule && fild.required) {
+      rule = rule.required(`Please enter ${fild.label.toLowerCase()}`);
+    }
 
-        if (field.type === "number") {
-          rule = Yup.number()
-            .typeError(`${field.name} must be a number`)
-            .positive(`${field.name} must be a positive number`)
-            .integer(`${field.name} must be a whole number`);
-        }
-        if (rule && field.required) {
-          rule = rule.required(`Please enter ${field.label.toLowerCase()}`);
-        }
+    if (rule) {
+      return { ...prev, [key]: rule };
+    }
+    return prev;
+  }, {});
+  return Yup.object(baseSchema);
+};
 
-        if (rule) {
-          return { ...prev, [key]: rule };
-        }
-        return prev;
-      }, {})
-    )
-  );
+const createValidationSchema = (
+  schema: FormSchema,
+  extensionSchema?: Yup.AnyObject
+) => {
+  return Yup.lazy((obj: FormValues) => {
+    const baseSchema = baseSchemaGenerator(schema, obj);
+
+    console.log(baseSchema);
+    console.log("baseSchema");
+    console.log(extensionSchema);
+    if (extensionSchema) {
+      const mergedSchema = extensionSchema.concat(baseSchema);
+      console.log("mergeSchema");
+      console.log(mergedSchema);
+      return mergedSchema;
+    }
+
+    return baseSchema;
+  });
 };
 
 export default createValidationSchema;

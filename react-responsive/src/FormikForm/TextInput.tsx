@@ -3,22 +3,14 @@ import { useFormikContext } from "formik";
 
 import type { FormField, FormValues } from "./formelements";
 
-const TextInput = ({
-  field,
-  dependentFields,
-}: {
-  field: FormField;
-  dependentFields: string[];
-}) => {
+const TextInput = ({ field }: { field: FormField }) => {
   const { name, label, type, isDependentOn, placeholder, required } = field;
   const { values, errors, touched, handleChange, handleBlur } =
     useFormikContext<FormValues>();
 
-  console.log(dependentFields);
   return (
     <div>
       <TextField
-        disabled={Boolean(values[isDependentOn]) !== true}
         margin="normal"
         key={name}
         id={name}

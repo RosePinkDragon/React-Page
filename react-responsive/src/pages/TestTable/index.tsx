@@ -53,7 +53,7 @@ const fuzzyFilter = (
   const itemRank = rankItem(row.getValue(columnId), value);
 
   // Store the itemRank info
-  addMeta  
+  addMeta({
     itemRank,
   });
 
