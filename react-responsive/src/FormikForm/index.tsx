@@ -21,6 +21,7 @@ import createValidationSchema from "./generateValidationSchema";
 import RadioInput from "./RadioInput";
 import SelectInput from "./SelectInput";
 import TextInput from "./TextInput";
+import { renderFormField } from "./componentRegistry";
 
 function FormGenerator({
   formData,
@@ -89,14 +90,9 @@ function FormGenerator({
               {section.formFields.map((field) => {
                 switch (field.type) {
                   case "text":
-                  case "boolean-text":
-                  case "async-text":
                   case "email":
-                  case "boolean-email":
-                  case "async-email":
                   case "password":
-                  case "boolean-password":
-                  case "async-password":
+                    if (renderFormField(field)) return renderFormField(field);
                     return (
                       <TextInput
                         field={field}

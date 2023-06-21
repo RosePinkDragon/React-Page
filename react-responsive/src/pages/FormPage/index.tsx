@@ -5,7 +5,10 @@ import type { AxiosError } from "axios";
 import * as Yup from "yup";
 
 import FormGenerator from "../../FormikForm";
+import { registerComponent } from "../../FormikForm/componentRegistry";
 import type { FormSchema } from "../../FormikForm/formelements";
+
+import CustomField from "./CustomField";
 
 const fetchCountries = (): Promise<FormSchema> =>
   axios.get("http://localhost:3000/formData").then((res) => res.data);
@@ -13,6 +16,8 @@ const fetchCountries = (): Promise<FormSchema> =>
 const extendedSchema = Yup.object().shape({
   phne: Yup.number().required(),
 });
+
+registerComponent("text", CustomField);
 
 const FormPage = () => {
   const {
